@@ -118,6 +118,7 @@
       font-weight: 600;
       margin-bottom: 5px;
     }
+    /* Cỡ chữ >= 16px giúp iPhone 15 Pro không tự zoom khi chạm nhập liệu */
     input, select, button {
       display: block;
       width: 100%;
@@ -131,7 +132,14 @@
       background: #fff;
       color: var(--ink);
     }
-    input[type="date"],
+    input[type="date"] {
+      -webkit-appearance: none;
+      appearance: none;
+      padding: 9px 8px;
+      font-size: 0.9rem;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
     input[type="time"],
     input[type="month"] {
       -webkit-appearance: none;
