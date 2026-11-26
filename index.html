@@ -3,175 +3,217 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bảng Chấm Công - Dạy, Nghe, Kiểm Tra, Trực, Phụ Đạo</title>
+  <title>Sổ Chấm Công &amp; Giờ Làm</title>
   <style>
     :root {
-      --bg: #f4f6fb;
-      --card: #ffffff;
-      --text: #18202c;
-      --muted: #5b6778;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --border: #e2e8f0;
-      --danger: #dc2626;
-      --double-bg: #fef3c7;
-      --double-text: #92400e;
+      --bg: #eef0f2;
+      --surface: #ffffff;
+      --header-bg: #2f3337;
+      --header-text: #ffffff;
+      --ink: #22262a;
+      --muted: #646b73;
+      --line: #d8dde3;
+      --accent: #3b4248;
+      --accent-hover: #1f2326;
+      --x2-bg: #fff3cd;
+      --x2-ink: #7a5200;
+      --danger: #b91c1c;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
-      color: var(--text);
-      padding: 16px;
+      color: var(--ink);
+      padding: 14px;
     }
-    .container {
-      max-width: 1020px;
+    .app {
+      max-width: 980px;
       margin: 0 auto;
     }
-    h1 {
-      font-size: 1.4rem;
-      margin: 0 0 4px;
-    }
-    .subtitle {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 16px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
+    .top-banner {
+      background: var(--header-bg);
+      color: var(--header-text);
       border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-    .card h2 {
-      font-size: 1.05rem;
-      margin: 0 0 12px;
-    }
-    .grid-form {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 12px;
+      margin-bottom: 14px;
+    }
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .icon-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.06);
+    }
+    .top-banner h1 {
+      margin: 0;
+      font-size: 1.18rem;
+    }
+    .top-banner p {
+      margin: 2px 0 0;
+      font-size: 0.8rem;
+      color: #d1d5db;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
       align-items: end;
     }
     label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       color: var(--muted);
-      margin-bottom: 4px;
       font-weight: 600;
+      margin-bottom: 4px;
     }
     input, select, button {
       width: 100%;
-      padding: 9px 10px;
+      padding: 8px 10px;
       border-radius: 8px;
-      border: 1px solid var(--border);
-      font-size: 0.95rem;
+      border: 1px solid var(--line);
+      font-size: 0.92rem;
       background: #fff;
-      color: var(--text);
+      color: var(--ink);
     }
-    .checkbox-row {
+    .check-box {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border: 1px solid var(--border);
+      gap: 7px;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
       border-radius: 8px;
-      background: #f8fafc;
-      min-height: 39px;
+      background: #f8f9fa;
+      min-height: 37px;
     }
-    .checkbox-row input[type="checkbox"] {
+    .check-box input[type="checkbox"] {
       width: auto;
       margin: 0;
       transform: scale(1.15);
     }
-    .checkbox-row label {
+    .check-box label {
       margin: 0;
-      color: var(--text);
+      color: var(--ink);
       cursor: pointer;
     }
     button {
       cursor: pointer;
       font-weight: 600;
     }
-    .btn-primary {
-      background: var(--primary);
+    .btn-dark {
+      background: var(--accent);
       color: #fff;
-      border-color: var(--primary);
+      border-color: var(--accent);
     }
-    .btn-primary:hover { background: var(--primary-hover); }
-    .btn-outline {
+    .btn-dark:hover { background: var(--accent-hover); }
+    .btn-light {
       background: #fff;
-      color: var(--text);
+      color: var(--ink);
+      width: auto;
     }
-    .btn-danger {
-      background: #fff;
-      color: var(--danger);
-      border-color: #fecaca;
-      padding: 5px 8px;
+    .btn-sm {
+      padding: 5px 10px;
       font-size: 0.82rem;
       width: auto;
     }
+    .btn-del {
+      background: #fff;
+      color: var(--danger);
+      border-color: #fecaca;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      width: auto;
+    }
+    .collapsible-body {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--line);
+    }
+    .collapsible-body.open {
+      display: block;
+    }
     .rates-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
       gap: 10px;
     }
-    .holiday-bar {
+    .holiday-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
       margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
     }
-    .holiday-bar input[type="date"], .holiday-bar button {
+    .holiday-row input[type="date"], .holiday-row button {
       width: auto;
     }
-    .holiday-tags {
+    .chips {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 8px;
     }
-    .holiday-chip {
+    .chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--double-bg);
-      color: var(--double-text);
-      padding: 4px 10px;
+      background: var(--x2-bg);
+      color: var(--x2-ink);
+      padding: 3px 9px;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
     }
-    .holiday-chip button {
+    .chip button {
       border: none;
-      background: transparent;
-      color: var(--double-text);
+      background: none;
+      color: var(--x2-ink);
       padding: 0;
       width: auto;
-      font-size: 0.9rem;
       line-height: 1;
     }
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .toolbar-group {
+    .controls-inline {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
     }
-    .toolbar-group input, .toolbar-group select, .toolbar-group button {
+    .controls-inline input, .controls-inline select, .controls-inline button {
       width: auto;
     }
     .table-wrap {
@@ -180,58 +222,77 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
     th, td {
-      border-bottom: 1px solid var(--border);
-      padding: 9px 8px;
+      padding: 8px;
+      border-bottom: 1px solid var(--line);
       text-align: left;
       white-space: nowrap;
     }
     th {
-      background: #f8fafc;
+      background: #f4f6f8;
+      color: var(--muted);
+      font-size: 0.8rem;
       font-weight: 700;
+    }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: #e9ecef;
+      color: #212529;
+    }
+    .tag-x2 {
+      background: var(--x2-bg);
+      color: var(--x2-ink);
+    }
+    .sum-row td {
+      font-weight: 700;
+      background: #f8f9fa;
+    }
+    .muted {
       color: var(--muted);
       font-size: 0.82rem;
     }
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      background: #eef2ff;
-      color: #1e40af;
-    }
-    .badge-x2 {
-      background: var(--double-bg);
-      color: var(--double-text);
-    }
-    .total-row td {
-      font-weight: 700;
-      background: #f8fafc;
-    }
-    .muted { color: var(--muted); font-size: 0.85rem; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Bảng Chấm Công Cá Nhân</h1>
-    <div class="subtitle">
-      5 loại công việc: <strong>Dạy</strong>, <strong>Nghe</strong>, <strong>Kiểm tra</strong>, <strong>Trực</strong>, <strong>Phụ đạo</strong>.
-      Hệ số <strong>x2</strong> chỉ áp dụng cho <strong>Chủ Nhật</strong> và <strong>Ngày lễ</strong> (Thứ Bảy tính thường x1).
-    </div>
-
-    <div class="card">
-      <h2>1. Nhập ca làm việc</h2>
-      <form id="entryForm" class="grid-form">
-        <div>
-          <label for="workDate">Ngày làm</label>
-          <input type="date" id="workDate" required />
+  <div class="app">
+    <div class="top-banner">
+      <div class="top-left">
+        <div class="icon-badge" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <polyline points="12 7 12 12 15.5 14"></polyline>
+          </svg>
         </div>
         <div>
-          <label for="jobType">Loại công việc</label>
-          <select id="jobType" required>
+          <h1>Sổ Chấm Công Cá Nhân</h1>
+        </div>
+      </div>
+      <div class="controls-inline">
+        <input type="month" id="monthSelect" />
+        <button type="button" id="exportCsvBtn" class="btn-light">Xuất CSV</button>
+      </div>
+    </div>
+
+    <!-- 1. NHẬP CA -->
+    <div class="panel">
+      <div class="panel-title">
+        <span>Nhập ca làm việc</span>
+        <button type="button" id="toggleSettingsBtn" class="btn-light btn-sm">Đơn giá &amp; Ngày lễ</button>
+      </div>
+      <form id="shiftForm" class="form-grid">
+        <div>
+          <label for="shiftDate">Ngày</label>
+          <input type="date" id="shiftDate" required />
+        </div>
+        <div>
+          <label for="shiftJob">Loại công việc</label>
+          <select id="shiftJob" required>
             <option value="Dạy">Dạy</option>
             <option value="Nghe">Nghe</option>
             <option value="Kiểm tra">Kiểm tra</option>
@@ -240,119 +301,71 @@
           </select>
         </div>
         <div>
-          <label for="startTime">Giờ bắt đầu</label>
-          <input type="time" id="startTime" value="08:00" required />
+          <label for="startHour">Bắt đầu</label>
+          <input type="time" id="startHour" value="08:00" required />
         </div>
         <div>
-          <label for="endTime">Giờ kết thúc</label>
-          <input type="time" id="endTime" value="10:00" required />
+          <label for="endHour">Kết thúc</label>
+          <input type="time" id="endHour" value="10:00" required />
         </div>
         <div>
-          <label>Hệ số ngày</label>
-          <div class="checkbox-row">
-            <input type="checkbox" id="isHoliday" />
-            <label for="isHoliday">Ngày lễ (x2)</label>
+          <label>Ngày lễ</label>
+          <div class="check-box">
+            <input type="checkbox" id="markHoliday" />
+            <label for="markHoliday">Lễ (x2)</label>
           </div>
         </div>
         <div>
-          <label for="note">Ghi chú</label>
-          <input type="text" id="note" placeholder="VD: Phụ đạo lớp 12..." />
+          <label for="shiftNote">Ghi chú</label>
+          <input type="text" id="shiftNote" placeholder="VD: Lớp sáng, trực..." />
         </div>
         <div>
-          <button type="submit" class="btn-primary">+ Thêm ca</button>
+          <button type="submit" class="btn-dark">+ Lưu ca</button>
         </div>
       </form>
 
-      <div class="holiday-bar">
-        <label for="holidayDateInput" class="muted" style="margin:0;">Danh sách ngày lễ (tự động x2):</label>
-        <input type="date" id="holidayDateInput" />
-        <button type="button" id="addHolidayBtn" class="btn-outline">+ Thêm ngày lễ</button>
-      </div>
-      <div id="holidayList" class="holiday-tags"></div>
-    </div>
+      <!-- MỤC ÍT DÙNG ĐƯỢC ẨN MẶC ĐỊNH -->
+      <div id="extraSettingsBox" class="collapsible-body">
+        <label style="margin-bottom:8px;">Đơn giá theo giờ (VNĐ / giờ - hệ số x1)</label>
+        <div class="rates-grid">
+          <div>
+            <label for="r_Dạy">Dạy</label>
+            <input type="number" id="r_Dạy" min="0" step="1000" />
+          </div>
+          <div>
+            <label for="r_Nghe">Nghe</label>
+            <input type="number" id="r_Nghe" min="0" step="1000" />
+          </div>
+          <div>
+            <label for="r_Kiểm tra">Kiểm tra</label>
+            <input type="number" id="r_Kiểm tra" min="0" step="1000" />
+          </div>
+          <div>
+            <label for="r_Trực">Trực</label>
+            <input type="number" id="r_Trực" min="0" step="1000" />
+          </div>
+          <div>
+            <label for="r_Phụ đạo">Phụ đạo</label>
+            <input type="number" id="r_Phụ đạo" min="0" step="1000" />
+          </div>
+        </div>
 
-    <div class="card">
-      <h2>2. Đơn giá theo giờ (VNĐ / giờ - hệ số x1)</h2>
-      <div class="rates-grid">
-        <div>
-          <label for="rate_Dạy">Dạy</label>
-          <input type="number" id="rate_Dạy" min="0" step="1000" />
+        <div class="holiday-row">
+          <label for="newHolidayDate" class="muted" style="margin:0;">Thêm ngày lễ (tự động x2):</label>
+          <input type="date" id="newHolidayDate" />
+          <button type="button" id="addHolidayBtn" class="btn-light btn-sm">+ Thêm ngày lễ</button>
         </div>
-        <div>
-          <label for="rate_Nghe">Nghe</label>
-          <input type="number" id="rate_Nghe" min="0" step="1000" />
-        </div>
-        <div>
-          <label for="rate_Kiểm tra">Kiểm tra</label>
-          <input type="number" id="rate_Kiểm tra" min="0" step="1000" />
-        </div>
-        <div>
-          <label for="rate_Trực">Trực</label>
-          <input type="number" id="rate_Trực" min="0" step="1000" />
-        </div>
-        <div>
-          <label for="rate_Phụ đạo">Phụ đạo</label>
-          <input type="number" id="rate_Phụ đạo" min="0" step="1000" />
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="toolbar">
-        <h2 style="margin:0;">3. Tổng kết cuối tuần (Chủ Nhật &amp; Ngày lễ trong tuần)</h2>
-        <div class="toolbar-group">
-          <label for="weekendFilter" class="muted" style="margin:0;">Tuần:</label>
-          <select id="weekendFilter"></select>
-        </div>
-      </div>
-      <div class="muted" id="weekendRangeLabel" style="margin-bottom:10px;"></div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Loại công việc</th>
-              <th>Giờ Chủ Nhật (x2)</th>
-              <th>Giờ Lễ khác trong tuần (x2)</th>
-              <th>Tổng giờ x2</th>
-              <th>Thành tiền x2</th>
-            </tr>
-          </thead>
-          <tbody id="weekendSummaryBody"></tbody>
-        </table>
+        <div id="holidayChips" class="chips"></div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="toolbar">
-        <h2 style="margin:0;">4. Tổng kết cuối tháng</h2>
-        <div class="toolbar-group">
-          <label for="monthFilter" class="muted" style="margin:0;">Tháng:</label>
-          <input type="month" id="monthFilter" />
-          <button type="button" id="exportCsvBtn" class="btn-outline">Xuất CSV tháng</button>
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Loại công việc</th>
-              <th>Giờ thường T2–T7 (x1)</th>
-              <th>Giờ CN &amp; Lễ (x2)</th>
-              <th>Tổng giờ tháng</th>
-              <th>Thành tiền tháng</th>
-            </tr>
-          </thead>
-          <tbody id="monthSummaryBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="toolbar">
-        <h2 style="margin:0;">5. Chi tiết các ca trong tháng</h2>
-        <div class="toolbar-group">
-          <select id="jobFilter">
-            <option value="ALL">Tất cả 5 loại việc</option>
+    <!-- 2. DANH SÁCH CA HIỆN NGAY BÊN DƯỚI ĐỂ THEO DÕI -->
+    <div class="panel">
+      <div class="panel-title">
+        <span>Danh sách ca đã nhập</span>
+        <div class="controls-inline">
+          <select id="filterJob">
+            <option value="ALL">Tất cả 5 loại</option>
             <option value="Dạy">Dạy</option>
             <option value="Nghe">Nghe</option>
             <option value="Kiểm tra">Kiểm tra</option>
@@ -367,15 +380,62 @@
             <tr>
               <th>Ngày</th>
               <th>Thứ / Hệ số</th>
-              <th>Loại việc</th>
-              <th>Khung giờ</th>
+              <th>Công việc</th>
+              <th>Giờ làm</th>
               <th>Số giờ</th>
               <th>Thành tiền</th>
               <th>Ghi chú</th>
               <th>Xóa</th>
             </tr>
           </thead>
-          <tbody id="entriesBody"></tbody>
+          <tbody id="logBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. TỔNG KẾT CUỐI TUẦN -->
+    <div class="panel">
+      <div class="panel-title">
+        <span>Tổng kết cuối tuần (Chủ Nhật &amp; Ngày lễ trong tuần)</span>
+        <div class="controls-inline">
+          <label for="weekSelect" class="muted" style="margin:0;">Tuần:</label>
+          <select id="weekSelect"></select>
+        </div>
+      </div>
+      <div class="muted" id="weekDesc" style="margin-bottom:8px;"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Công việc</th>
+              <th>Chủ Nhật (x2)</th>
+              <th>Ngày lễ khác (x2)</th>
+              <th>Tổng giờ x2</th>
+              <th>Thành tiền x2</th>
+            </tr>
+          </thead>
+          <tbody id="weekSummaryBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. TỔNG KẾT CUỐI THÁNG -->
+    <div class="panel">
+      <div class="panel-title">
+        <span>Tổng kết cuối tháng</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Công việc</th>
+              <th>Giờ thường T2–T7 (x1)</th>
+              <th>Giờ CN &amp; Lễ (x2)</th>
+              <th>Tổng giờ tháng</th>
+              <th>Thành tiền tháng</th>
+            </tr>
+          </thead>
+          <tbody id="monthSummaryBody"></tbody>
         </table>
       </div>
     </div>
@@ -383,331 +443,282 @@
 
   <script>
     const JOBS = ["Dạy", "Nghe", "Kiểm tra", "Trực", "Phụ đạo"];
-    const STORAGE_ENTRIES = "timesheet_entries_v3";
-    const STORAGE_RATES = "timesheet_rates_v3";
-    const STORAGE_HOLIDAYS = "timesheet_holidays_v3";
+    const KEY_SHIFTS = "so_cham_cong_shifts_v1";
+    const KEY_RATES = "so_cham_cong_rates_v1";
+    const KEY_HOLIDAYS = "so_cham_cong_holidays_v1";
 
-    let entries = JSON.parse(localStorage.getItem(STORAGE_ENTRIES) || "[]");
-    let rates = Object.assign(
-      { "Dạy": 0, "Nghe": 0, "Kiểm tra": 0, "Trực": 0, "Phụ đạo": 0 },
-      JSON.parse(localStorage.getItem(STORAGE_RATES) || "{}")
-    );
-    let holidays = new Set(JSON.parse(localStorage.getItem(STORAGE_HOLIDAYS) || "[]"));
+    let shifts = JSON.parse(localStorage.getItem(KEY_SHIFTS) || "[]");
+    let rates = Object.assign({ "Dạy": 0, "Nghe": 0, "Kiểm tra": 0, "Trực": 0, "Phụ đạo": 0 }, JSON.parse(localStorage.getItem(KEY_RATES) || "{}"));
+    let holidays = new Set(JSON.parse(localStorage.getItem(KEY_HOLIDAYS) || "[]"));
 
-    const workDateEl = document.getElementById("workDate");
-    const jobTypeEl = document.getElementById("jobType");
-    const startTimeEl = document.getElementById("startTime");
-    const endTimeEl = document.getElementById("endTime");
-    const isHolidayEl = document.getElementById("isHoliday");
-    const noteEl = document.getElementById("note");
-    const holidayDateInputEl = document.getElementById("holidayDateInput");
-    const monthFilterEl = document.getElementById("monthFilter");
-    const weekendFilterEl = document.getElementById("weekendFilter");
-    const jobFilterEl = document.getElementById("jobFilter");
+    const shiftDateEl = document.getElementById("shiftDate");
+    const shiftJobEl = document.getElementById("shiftJob");
+    const startHourEl = document.getElementById("startHour");
+    const endHourEl = document.getElementById("endHour");
+    const markHolidayEl = document.getElementById("markHoliday");
+    const shiftNoteEl = document.getElementById("shiftNote");
+    const newHolidayDateEl = document.getElementById("newHolidayDate");
+    const monthSelectEl = document.getElementById("monthSelect");
+    const weekSelectEl = document.getElementById("weekSelect");
+    const filterJobEl = document.getElementById("filterJob");
+    const extraSettingsBoxEl = document.getElementById("extraSettingsBox");
 
-    const todayStr = new Date().toISOString().slice(0, 10);
-    workDateEl.value = todayStr;
-    holidayDateInputEl.value = todayStr;
-    monthFilterEl.value = todayStr.slice(0, 7);
+    const today = new Date().toISOString().slice(0, 10);
+    shiftDateEl.value = today;
+    newHolidayDateEl.value = today;
+    monthSelectEl.value = today.slice(0, 7);
+
+    document.getElementById("toggleSettingsBtn").addEventListener("click", () => {
+      extraSettingsBoxEl.classList.toggle("open");
+    });
 
     JOBS.forEach(job => {
-      const inp = document.getElementById("rate_" + job);
-      inp.value = rates[job] || 0;
-      inp.addEventListener("change", () => {
-        rates[job] = Math.max(0, Number(inp.value) || 0);
-        localStorage.setItem(STORAGE_RATES, JSON.stringify(rates));
+      const el = document.getElementById("r_" + job);
+      el.value = rates[job] || 0;
+      el.addEventListener("change", () => {
+        rates[job] = Math.max(0, Number(el.value) || 0);
+        localStorage.setItem(KEY_RATES, JSON.stringify(rates));
         renderAll();
       });
     });
 
-    function calcHours(start, end) {
-      const [sh, sm] = start.split(":").map(Number);
-      const [eh, em] = end.split(":").map(Number);
-      let diff = (eh * 60 + em) - (sh * 60 + sm);
-      if (diff <= 0) diff += 24 * 60;
-      return Math.round((diff / 60) * 100) / 100;
+    function hoursBetween(s, e) {
+      const [sh, sm] = s.split(":").map(Number);
+      const [eh, em] = e.split(":").map(Number);
+      let mins = (eh * 60 + em) - (sh * 60 + sm);
+      if (mins <= 0) mins += 1440;
+      return Math.round((mins / 60) * 100) / 100;
     }
 
-    function getDayOfWeek(dateStr) {
-      const [y, m, d] = dateStr.split("-").map(Number);
+    function dayIdx(dStr) {
+      const [y, m, d] = dStr.split("-").map(Number);
       return new Date(y, m - 1, d).getDay(); // 0 = CN, 6 = T7
     }
 
-    function getDayLabel(dateStr) {
-      const map = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
-      return map[getDayOfWeek(dateStr)];
+    function dayName(dStr) {
+      return ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"][dayIdx(dStr)];
     }
 
-    // Chỉ Chủ Nhật (day === 0) hoặc ngày lễ mới được nhân đôi (x2). Thứ Bảy (day === 6) tính x1.
-    function isDoubleDay(dateStr, entryMarkedHoliday = false) {
-      return getDayOfWeek(dateStr) === 0 || holidays.has(dateStr) || Boolean(entryMarkedHoliday);
+    // Chỉ Chủ Nhật (0) hoặc Ngày lễ mới x2; Thứ Bảy (6) tính x1
+    function hasX2(dStr, flagged = false) {
+      return dayIdx(dStr) === 0 || holidays.has(dStr) || Boolean(flagged);
     }
 
-    function getMondayStr(dateStr) {
-      const [y, m, d] = dateStr.split("-").map(Number);
+    function mondayOf(dStr) {
+      const [y, m, d] = dStr.split("-").map(Number);
       const dt = new Date(y, m - 1, d);
-      const day = dt.getDay();
-      const diffToMon = day === 0 ? -6 : 1 - day;
-      dt.setDate(dt.getDate() + diffToMon);
+      const diff = dt.getDay() === 0 ? -6 : 1 - dt.getDay();
+      dt.setDate(dt.getDate() + diff);
       return dt.toISOString().slice(0, 10);
     }
 
-    function addDaysStr(dateStr, days) {
-      const [y, m, d] = dateStr.split("-").map(Number);
-      const dt = new Date(y, m - 1, d + days);
+    function addDays(dStr, n) {
+      const [y, m, d] = dStr.split("-").map(Number);
+      const dt = new Date(y, m - 1, d + n);
       return dt.toISOString().slice(0, 10);
     }
 
-    function formatHours(h) {
+    function fmtH(h) {
       return Number(h.toFixed(2)).toString() + " giờ";
     }
 
-    function formatMoney(v) {
+    function fmtVND(v) {
       return Math.round(v).toLocaleString("vi-VN") + " đ";
     }
 
-    function syncHolidayCheckbox() {
-      isHolidayEl.checked = holidays.has(workDateEl.value);
+    function syncHolidayCheck() {
+      markHolidayEl.checked = holidays.has(shiftDateEl.value);
     }
-    workDateEl.addEventListener("change", syncHolidayCheckbox);
-    syncHolidayCheckbox();
+    shiftDateEl.addEventListener("change", syncHolidayCheck);
+    syncHolidayCheck();
 
     document.getElementById("addHolidayBtn").addEventListener("click", () => {
-      const val = holidayDateInputEl.value;
-      if (!val) return;
-      holidays.add(val);
-      localStorage.setItem(STORAGE_HOLIDAYS, JSON.stringify(Array.from(holidays).sort()));
-      syncHolidayCheckbox();
+      const v = newHolidayDateEl.value;
+      if (!v) return;
+      holidays.add(v);
+      localStorage.setItem(KEY_HOLIDAYS, JSON.stringify(Array.from(holidays).sort()));
+      syncHolidayCheck();
       renderAll();
     });
 
-    function removeHoliday(dateStr) {
-      holidays.delete(dateStr);
-      localStorage.setItem(STORAGE_HOLIDAYS, JSON.stringify(Array.from(holidays).sort()));
-      syncHolidayCheckbox();
+    function removeHoliday(dStr) {
+      holidays.delete(dStr);
+      localStorage.setItem(KEY_HOLIDAYS, JSON.stringify(Array.from(holidays).sort()));
+      syncHolidayCheck();
       renderAll();
     }
 
-    function renderHolidayList() {
-      const sorted = Array.from(holidays).sort();
-      const box = document.getElementById("holidayList");
-      if (sorted.length === 0) {
-        box.innerHTML = `<span class="muted">Chưa thêm ngày lễ riêng nào.</span>`;
+    function renderHolidays() {
+      const list = Array.from(holidays).sort();
+      const box = document.getElementById("holidayChips");
+      if (!list.length) {
+        box.innerHTML = `<span class="muted">Chưa thêm ngày lễ riêng.</span>`;
         return;
       }
-      box.innerHTML = sorted.map(d => `
-        <span class="holiday-chip">
-          Lễ: ${d} (x2)
-          <button type="button" title="Xóa ngày lễ" onclick="removeHoliday('${d}')">&times;</button>
-        </span>
+      box.innerHTML = list.map(d => `
+        <span class="chip">Lễ ${d} (x2) <button type="button" onclick="removeHoliday('${d}')">&times;</button></span>
       `).join("");
     }
 
-    document.getElementById("entryForm").addEventListener("submit", (e) => {
+    document.getElementById("shiftForm").addEventListener("submit", (e) => {
       e.preventDefault();
-      const hours = calcHours(startTimeEl.value, endTimeEl.value);
-      if (hours <= 0) return;
+      const h = hoursBetween(startHourEl.value, endHourEl.value);
+      if (h <= 0) return;
 
-      if (isHolidayEl.checked) {
-        holidays.add(workDateEl.value);
-        localStorage.setItem(STORAGE_HOLIDAYS, JSON.stringify(Array.from(holidays).sort()));
+      if (markHolidayEl.checked) {
+        holidays.add(shiftDateEl.value);
+        localStorage.setItem(KEY_HOLIDAYS, JSON.stringify(Array.from(holidays).sort()));
       }
 
-      entries.push({
+      shifts.push({
         id: Date.now().toString(),
-        date: workDateEl.value,
-        job: jobTypeEl.value,
-        start: startTimeEl.value,
-        end: endTimeEl.value,
-        hours,
-        isHoliday: isHolidayEl.checked,
-        note: noteEl.value.trim()
+        date: shiftDateEl.value,
+        job: shiftJobEl.value,
+        start: startHourEl.value,
+        end: endHourEl.value,
+        hours: h,
+        holiday: markHolidayEl.checked,
+        note: shiftNoteEl.value.trim()
       });
-      entries.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
-      localStorage.setItem(STORAGE_ENTRIES, JSON.stringify(entries));
-      noteEl.value = "";
-      monthFilterEl.value = workDateEl.value.slice(0, 7);
+      shifts.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+      localStorage.setItem(KEY_SHIFTS, JSON.stringify(shifts));
+      shiftNoteEl.value = "";
+      monthSelectEl.value = shiftDateEl.value.slice(0, 7);
       renderAll();
     });
 
-    function deleteEntry(id) {
-      entries = entries.filter(item => item.id !== id);
-      localStorage.setItem(STORAGE_ENTRIES, JSON.stringify(entries));
+    function deleteShift(id) {
+      shifts = shifts.filter(s => s.id !== id);
+      localStorage.setItem(KEY_SHIFTS, JSON.stringify(shifts));
       renderAll();
     }
 
-    function populateWeekends() {
-      const mondays = new Set([getMondayStr(todayStr)]);
-      entries.forEach(item => mondays.add(getMondayStr(item.date)));
-      const sortedMondays = Array.from(mondays).sort((a, b) => b.localeCompare(a));
-
-      const prevSelected = weekendFilterEl.value;
-      weekendFilterEl.innerHTML = sortedMondays.map(mon => {
-        const sun = addDaysStr(mon, 6);
-        return `<option value="${mon}">Tuần ${mon} – CN (${sun})</option>`;
-      }).join("");
-
-      if (prevSelected && sortedMondays.includes(prevSelected)) {
-        weekendFilterEl.value = prevSelected;
-      } else {
-        weekendFilterEl.value = sortedMondays[0];
-      }
+    function populateWeeks() {
+      const set = new Set([mondayOf(today)]);
+      shifts.forEach(s => set.add(mondayOf(s.date)));
+      const sorted = Array.from(set).sort((a, b) => b.localeCompare(a));
+      const prev = weekSelectEl.value;
+      weekSelectEl.innerHTML = sorted.map(m => `<option value="${m}">Tuần ${m} – CN (${addDays(m, 6)})</option>`).join("");
+      weekSelectEl.value = (prev && sorted.includes(prev)) ? prev : sorted[0];
     }
 
-    function renderWeekendSummary() {
-      const mon = weekendFilterEl.value;
-      const sun = addDaysStr(mon, 6);
-      const weekDates = new Set(Array.from({ length: 7 }, (_, i) => addDaysStr(mon, i)));
-      document.getElementById("weekendRangeLabel").textContent =
-        `Tuần ${mon} đến Chủ Nhật (${sun}) — chỉ tính giờ x2 của Chủ Nhật và các ngày lễ trong tuần (không tính Thứ Bảy).`;
+    function renderWeek() {
+      const mon = weekSelectEl.value;
+      const sun = addDays(mon, 6);
+      const dates = new Set(Array.from({ length: 7 }, (_, i) => addDays(mon, i)));
+      document.getElementById("weekDesc").textContent = `Tuần ${mon} đến Chủ Nhật (${sun}) — chỉ tính x2 cho Chủ Nhật và Ngày lễ (Thứ Bảy = x1).`;
 
-      const stats = {};
-      JOBS.forEach(j => stats[j] = { sunHours: 0, otherHolidayHours: 0 });
+      const map = {};
+      JOBS.forEach(j => map[j] = { sun: 0, hol: 0 });
 
-      entries.forEach(item => {
-        if (!JOBS.includes(item.job) || !weekDates.has(item.date)) return;
-        const doubleDay = isDoubleDay(item.date, item.isHoliday);
-        if (!doubleDay) return;
-
-        if (getDayOfWeek(item.date) === 0) {
-          stats[item.job].sunHours += item.hours;
-        } else {
-          stats[item.job].otherHolidayHours += item.hours;
-        }
+      shifts.forEach(s => {
+        if (!JOBS.includes(s.job) || !dates.has(s.date)) return;
+        if (!hasX2(s.date, s.holiday)) return;
+        if (dayIdx(s.date) === 0) map[s.job].sun += s.hours;
+        else map[s.job].hol += s.hours;
       });
 
-      let sumSun = 0, sumHol = 0, sumAll = 0, sumMoney = 0;
-      const rows = JOBS.map(job => {
-        const sh = stats[job].sunHours;
-        const hh = stats[job].otherHolidayHours;
-        const totalH = sh + hh;
-        const money = totalH * (rates[job] || 0) * 2;
-        sumSun += sh;
-        sumHol += hh;
-        sumAll += totalH;
-        sumMoney += money;
-        return `
-          <tr>
-            <td><span class="badge">${job}</span></td>
-            <td>${formatHours(sh)}</td>
-            <td>${formatHours(hh)}</td>
-            <td><strong>${formatHours(totalH)}</strong></td>
-            <td>${formatMoney(money)}</td>
-          </tr>
-        `;
+      let tSun = 0, tHol = 0, tH = 0, tMoney = 0;
+      let html = JOBS.map(j => {
+        const sunH = map[j].sun;
+        const holH = map[j].hol;
+        const sumH = sunH + holH;
+        const money = sumH * (rates[j] || 0) * 2;
+        tSun += sunH; tHol += holH; tH += sumH; tMoney += money;
+        return `<tr>
+          <td><span class="tag">${j}</span></td>
+          <td>${fmtH(sunH)}</td>
+          <td>${fmtH(holH)}</td>
+          <td><strong>${fmtH(sumH)}</strong></td>
+          <td>${fmtVND(money)}</td>
+        </tr>`;
       }).join("");
 
-      rows += `
-        <tr class="total-row">
-          <td>Tổng x2 trong tuần</td>
-          <td>${formatHours(sumSun)}</td>
-          <td>${formatHours(sumHol)}</td>
-          <td>${formatHours(sumAll)}</td>
-          <td>${formatMoney(sumMoney)}</td>
-        </tr>
-      `;
-      document.getElementById("weekendSummaryBody").innerHTML = rows;
+      html += `<tr class="sum-row">
+        <td>Tổng x2 tuần</td>
+        <td>${fmtH(tSun)}</td>
+        <td>${fmtH(tHol)}</td>
+        <td>${fmtH(tH)}</td>
+        <td>${fmtVND(tMoney)}</td>
+      </tr>`;
+      document.getElementById("weekSummaryBody").innerHTML = html;
     }
 
-    function renderMonthSummary() {
-      const month = monthFilterEl.value;
-      const stats = {};
-      JOBS.forEach(j => stats[j] = { normalHours: 0, doubleHours: 0 });
+    function renderMonth() {
+      const m = monthSelectEl.value;
+      const map = {};
+      JOBS.forEach(j => map[j] = { norm: 0, dbl: 0 });
 
-      entries.forEach(item => {
-        if (!item.date.startsWith(month) || !JOBS.includes(item.job)) return;
-        if (isDoubleDay(item.date, item.isHoliday)) {
-          stats[item.job].doubleHours += item.hours;
-        } else {
-          stats[item.job].normalHours += item.hours;
-        }
+      shifts.forEach(s => {
+        if (!s.date.startsWith(m) || !JOBS.includes(s.job)) return;
+        if (hasX2(s.date, s.holiday)) map[s.job].dbl += s.hours;
+        else map[s.job].norm += s.hours;
       });
 
-      let sumNormal = 0, sumDouble = 0, sumHours = 0, sumMoney = 0;
-      const rows = JOBS.map(job => {
-        const nh = stats[job].normalHours;
-        const dh = stats[job].doubleHours;
-        const allH = nh + dh;
-        const unit = rates[job] || 0;
-        const money = (nh * unit) + (dh * unit * 2);
-        sumNormal += nh;
-        sumDouble += dh;
-        sumHours += allH;
-        sumMoney += money;
-        return `
-          <tr>
-            <td><span class="badge">${job}</span></td>
-            <td>${formatHours(nh)}</td>
-            <td>${formatHours(dh)}</td>
-            <td><strong>${formatHours(allH)}</strong></td>
-            <td>${formatMoney(money)}</td>
-          </tr>
-        `;
+      let tNorm = 0, tDbl = 0, tAll = 0, tMoney = 0;
+      let html = JOBS.map(j => {
+        const nh = map[j].norm;
+        const dh = map[j].dbl;
+        const ah = nh + dh;
+        const u = rates[j] || 0;
+        const money = nh * u + dh * u * 2;
+        tNorm += nh; tDbl += dh; tAll += ah; tMoney += money;
+        return `<tr>
+          <td><span class="tag">${j}</span></td>
+          <td>${fmtH(nh)}</td>
+          <td>${fmtH(dh)}</td>
+          <td><strong>${fmtH(ah)}</strong></td>
+          <td>${fmtVND(money)}</td>
+        </tr>`;
       }).join("");
 
-      rows += `
-        <tr class="total-row">
-          <td>Tổng tháng (${month})</td>
-          <td>${formatHours(sumNormal)}</td>
-          <td>${formatHours(sumDouble)}</td>
-          <td>${formatHours(sumHours)}</td>
-          <td>${formatMoney(sumMoney)}</td>
-        </tr>
-      `;
-      document.getElementById("monthSummaryBody").innerHTML = rows;
+      html += `<tr class="sum-row">
+        <td>Tổng tháng (${m})</td>
+        <td>${fmtH(tNorm)}</td>
+        <td>${fmtH(tDbl)}</td>
+        <td>${fmtH(tAll)}</td>
+        <td>${fmtVND(tMoney)}</td>
+      </tr>`;
+      document.getElementById("monthSummaryBody").innerHTML = html;
     }
 
-    function renderEntriesTable() {
-      const month = monthFilterEl.value;
-      const jobFilter = jobFilterEl.value;
-      const filtered = entries.filter(item =>
-        item.date.startsWith(month) && (jobFilter === "ALL" || item.job === jobFilter)
-      );
+    function renderLog() {
+      const m = monthSelectEl.value;
+      const jf = filterJobEl.value;
+      const rows = shifts.filter(s => s.date.startsWith(m) && (jf === "ALL" || s.job === jf));
 
-      if (filtered.length === 0) {
-        document.getElementById("entriesBody").innerHTML = `<tr><td colspan="8" class="muted">Chưa có ca làm việc nào trong tháng ${month}.</td></tr>`;
+      if (!rows.length) {
+        document.getElementById("logBody").innerHTML = `<tr><td colspan="8" class="muted">Chưa có ca nào trong tháng ${m}.</td></tr>`;
         return;
       }
 
-      document.getElementById("entriesBody").innerHTML = filtered.map(item => {
-        const doubleDay = isDoubleDay(item.date, item.isHoliday);
-        const mult = doubleDay ? 2 : 1;
-        const money = item.hours * (rates[item.job] || 0) * mult;
-        const badgeHtml = doubleDay
-          ? `<span class="badge badge-x2">x2</span>`
-          : `<span class="badge">x1</span>`;
-        return `
-          <tr>
-            <td>${item.date}</td>
-            <td>${getDayLabel(item.date)} ${badgeHtml}</td>
-            <td><span class="badge">${item.job}</span></td>
-            <td>${item.start} – ${item.end}</td>
-            <td>${formatHours(item.hours)}</td>
-            <td>${formatMoney(money)}</td>
-            <td>${item.note || ""}</td>
-            <td><button class="btn-danger" onclick="deleteEntry('${item.id}')">Xóa</button></td>
-          </tr>
-        `;
+      document.getElementById("logBody").innerHTML = rows.map(s => {
+        const dbl = hasX2(s.date, s.holiday);
+        const mult = dbl ? 2 : 1;
+        const money = s.hours * (rates[s.job] || 0) * mult;
+        return `<tr>
+          <td>${s.date}</td>
+          <td>${dayName(s.date)} <span class="tag ${dbl ? "tag-x2" : ""}">x${mult}</span></td>
+          <td><span class="tag">${s.job}</span></td>
+          <td>${s.start} – ${s.end}</td>
+          <td>${fmtH(s.hours)}</td>
+          <td>${fmtVND(money)}</td>
+          <td>${s.note || ""}</td>
+          <td><button class="btn-del" onclick="deleteShift('${s.id}')">Xóa</button></td>
+        </tr>`;
       }).join("");
     }
 
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
-      const month = monthFilterEl.value;
-      const rows = [["Ngày", "Thứ", "Loại công việc", "Hệ số", "Giờ bắt đầu", "Giờ kết thúc", "Số giờ", "Đơn giá gốc", "Thành tiền", "Ghi chú"]];
-      entries.filter(item => item.date.startsWith(month)).forEach(item => {
-        const unit = rates[item.job] || 0;
-        const mult = isDoubleDay(item.date, item.isHoliday) ? 2 : 1;
+      const m = monthSelectEl.value;
+      const rows = [["Ngày", "Thứ", "Công việc", "Hệ số", "Bắt đầu", "Kết thúc", "Số giờ", "Đơn giá", "Thành tiền", "Ghi chú"]];
+      shifts.filter(s => s.date.startsWith(m)).forEach(s => {
+        const u = rates[s.job] || 0;
+        const mult = hasX2(s.date, s.holiday) ? 2 : 1;
         rows.push([
-          item.date,
-          getDayLabel(item.date),
-          item.job,
-          `x${mult}`,
-          item.start,
-          item.end,
-          item.hours,
-          unit,
-          Math.round(item.hours * unit * mult),
-          `"${(item.note || "").replace(/"/g, '""')}"`
+          s.date, dayName(s.date), s.job, `x${mult}`, s.start, s.end, s.hours, u,
+          Math.round(s.hours * u * mult),
+          `"${(s.note || "").replace(/"/g, '""')}"`
         ]);
       });
       const csv = "\uFEFF" + rows.map(r => r.join(",")).join("\n");
@@ -715,24 +726,21 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `Cham_Cong_${month}.csv`;
+      a.download = `So_Cham_Cong_${m}.csv`;
       a.click();
       URL.revokeObjectURL(url);
     });
 
-    weekendFilterEl.addEventListener("change", renderWeekendSummary);
-    monthFilterEl.addEventListener("change", () => {
-      renderMonthSummary();
-      renderEntriesTable();
-    });
-    jobFilterEl.addEventListener("change", renderEntriesTable);
+    weekSelectEl.addEventListener("change", renderWeek);
+    monthSelectEl.addEventListener("change", () => { renderMonth(); renderLog(); });
+    filterJobEl.addEventListener("change", renderLog);
 
     function renderAll() {
-      renderHolidayList();
-      populateWeekends();
-      renderWeekendSummary();
-      renderMonthSummary();
-      renderEntriesTable();
+      renderHolidays();
+      populateWeeks();
+      renderWeek();
+      renderMonth();
+      renderLog();
     }
 
     renderAll();
