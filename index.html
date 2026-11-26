@@ -271,6 +271,7 @@
         </div>
         <div>
           <h1>Sổ Chấm Công Cá Nhân</h1>
+          <p>Dạy · Nghe · Kiểm tra · Trực · Phụ đạo | x2: Chủ Nhật &amp; Ngày lễ (Thứ Bảy = x1)</p>
         </div>
       </div>
       <div class="controls-inline">
@@ -393,10 +394,10 @@
       </div>
     </div>
 
-    <!-- 3. TỔNG KẾT CUỐI TUẦN -->
+    <!-- 3. TỔNG KẾT CUỐI TUẦN: CHỈ SỐ TIẾNG TỪNG LOẠI VIỆC TRONG TUẦN -->
     <div class="panel">
       <div class="panel-title">
-        <span>Tổng kết cuối tuần (Chủ Nhật &amp; Ngày lễ trong tuần)</span>
+        <span>Tổng kết cuối tuần (Số tiếng theo loại việc)</span>
         <div class="controls-inline">
           <label for="weekSelect" class="muted" style="margin:0;">Tuần:</label>
           <select id="weekSelect"></select>
@@ -407,11 +408,8 @@
         <table>
           <thead>
             <tr>
-              <th>Công việc</th>
-              <th>Chủ Nhật (x2)</th>
-              <th>Ngày lễ khác (x2)</th>
-              <th>Tổng giờ x2</th>
-              <th>Thành tiền x2</th>
+              <th>Loại công việc</th>
+              <th>Số tiếng đã làm trong tuần</th>
             </tr>
           </thead>
           <tbody id="weekSummaryBody"></tbody>
@@ -606,40 +604,29 @@
       const mon = weekSelectEl.value;
       const sun = addDays(mon, 6);
       const dates = new Set(Array.from({ length: 7 }, (_, i) => addDays(mon, i)));
-      document.getElementById("weekDesc").textContent = `Tuần ${mon} đến Chủ Nhật (${sun}) — chỉ tính x2 cho Chủ Nhật và Ngày lễ (Thứ Bảy = x1).`;
+      document.getElementById("weekDesc").textContent = `Từ Thứ Hai (${mon}) đến Chủ Nhật (${sun}).`;
 
-      const map = {};
-      JOBS.forEach(j => map[j] = { sun: 0, hol: 0 });
+      const hoursByJob = {};
+      JOBS.forEach(j => hoursByJob[j] = 0);
 
       shifts.forEach(s => {
         if (!JOBS.includes(s.job) || !dates.has(s.date)) return;
-        if (!hasX2(s.date, s.holiday)) return;
-        if (dayIdx(s.date) === 0) map[s.job].sun += s.hours;
-        else map[s.job].hol += s.hours;
+        hoursByJob[s.job] += s.hours;
       });
 
-      let tSun = 0, tHol = 0, tH = 0, tMoney = 0;
+      let totalWeekHours = 0;
       let html = JOBS.map(j => {
-        const sunH = map[j].sun;
-        const holH = map[j].hol;
-        const sumH = sunH + holH;
-        const money = sumH * (rates[j] || 0) * 2;
-        tSun += sunH; tHol += holH; tH += sumH; tMoney += money;
+        const h = hoursByJob[j];
+        totalWeekHours += h;
         return `<tr>
           <td><span class="tag">${j}</span></td>
-          <td>${fmtH(sunH)}</td>
-          <td>${fmtH(holH)}</td>
-          <td><strong>${fmtH(sumH)}</strong></td>
-          <td>${fmtVND(money)}</td>
+          <td><strong>${fmtH(h)}</strong></td>
         </tr>`;
       }).join("");
 
       html += `<tr class="sum-row">
-        <td>Tổng x2 tuần</td>
-        <td>${fmtH(tSun)}</td>
-        <td>${fmtH(tHol)}</td>
-        <td>${fmtH(tH)}</td>
-        <td>${fmtVND(tMoney)}</td>
+        <td>Tổng cộng cả tuần</td>
+        <td>${fmtH(totalWeekHours)}</td>
       </tr>`;
       document.getElementById("weekSummaryBody").innerHTML = html;
     }
