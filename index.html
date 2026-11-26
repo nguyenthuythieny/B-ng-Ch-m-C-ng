@@ -271,7 +271,7 @@
         </div>
         <div>
           <h1>Sổ Chấm Công Cá Nhân</h1>
-          <p>Dạy · Nghe · Kiểm tra · Trực · Phụ đạo | x2 giờ: Chủ Nhật &amp; Ngày lễ (Thứ Bảy = x1)</p>
+          <p>Dạy · Phụ đạo · Nghe · Kiểm tra · Trực | x2 giờ: Chủ Nhật &amp; Ngày lễ (Thứ Bảy = x1)</p>
         </div>
       </div>
       <div class="controls-inline">
@@ -280,7 +280,7 @@
       </div>
     </div>
 
-    <!-- 1. NHẬP CA LÀM VIỆC (ĐÃ BỎ GHI CHÚ) -->
+    <!-- 1. NHẬP CA LÀM VIỆC -->
     <div class="panel">
       <div class="panel-title">
         <span>Nhập ca làm việc</span>
@@ -295,10 +295,10 @@
           <label for="shiftJob">Loại công việc</label>
           <select id="shiftJob" required>
             <option value="Dạy">Dạy</option>
+            <option value="Phụ đạo">Phụ đạo</option>
             <option value="Nghe">Nghe</option>
             <option value="Kiểm tra">Kiểm tra</option>
             <option value="Trực">Trực</option>
-            <option value="Phụ đạo">Phụ đạo</option>
           </select>
         </div>
         <div>
@@ -330,6 +330,10 @@
             <input type="number" id="r_Dạy" min="0" step="1000" />
           </div>
           <div>
+            <label for="r_Phụ đạo">Phụ đạo</label>
+            <input type="number" id="r_Phụ đạo" min="0" step="1000" />
+          </div>
+          <div>
             <label for="r_Nghe">Nghe</label>
             <input type="number" id="r_Nghe" min="0" step="1000" />
           </div>
@@ -340,10 +344,6 @@
           <div>
             <label for="r_Trực">Trực</label>
             <input type="number" id="r_Trực" min="0" step="1000" />
-          </div>
-          <div>
-            <label for="r_Phụ đạo">Phụ đạo</label>
-            <input type="number" id="r_Phụ đạo" min="0" step="1000" />
           </div>
         </div>
 
@@ -356,7 +356,7 @@
       </div>
     </div>
 
-    <!-- 2. DANH SÁCH CA ĐÃ NHẬP (TỰ ĐỘNG x2 SỐ GIỜ CN & LỄ, BỎ GHI CHÚ) -->
+    <!-- 2. DANH SÁCH CA ĐÃ NHẬP -->
     <div class="panel">
       <div class="panel-title">
         <span>Danh sách ca đã nhập</span>
@@ -364,10 +364,10 @@
           <select id="filterJob">
             <option value="ALL">Tất cả 5 loại</option>
             <option value="Dạy">Dạy</option>
+            <option value="Phụ đạo">Phụ đạo</option>
             <option value="Nghe">Nghe</option>
             <option value="Kiểm tra">Kiểm tra</option>
             <option value="Trực">Trực</option>
-            <option value="Phụ đạo">Phụ đạo</option>
           </select>
         </div>
       </div>
@@ -389,7 +389,7 @@
       </div>
     </div>
 
-    <!-- 3. TỔNG KẾT CUỐI TUẦN (THÊM CỘT THÀNH TIỀN) -->
+    <!-- 3. TỔNG KẾT CUỐI TUẦN -->
     <div class="panel">
       <div class="panel-title">
         <span>Tổng kết cuối tuần</span>
@@ -413,7 +413,7 @@
       </div>
     </div>
 
-    <!-- 4. TỔNG KẾT CUỐI THÁNG (CHỈ TỔNG GIỜ THÁNG TỪNG CÔNG VIỆC & THÀNH TIỀN) -->
+    <!-- 4. TỔNG KẾT CUỐI THÁNG -->
     <div class="panel">
       <div class="panel-title">
         <span>Tổng kết cuối tháng</span>
@@ -434,13 +434,13 @@
   </div>
 
   <script>
-    const JOBS = ["Dạy", "Nghe", "Kiểm tra", "Trực", "Phụ đạo"];
+    const JOBS = ["Dạy", "Phụ đạo", "Nghe", "Kiểm tra", "Trực"];
     const KEY_SHIFTS = "so_cham_cong_shifts_v1";
     const KEY_RATES = "so_cham_cong_rates_v1";
     const KEY_HOLIDAYS = "so_cham_cong_holidays_v1";
 
     let shifts = JSON.parse(localStorage.getItem(KEY_SHIFTS) || "[]");
-    let rates = Object.assign({ "Dạy": 0, "Nghe": 0, "Kiểm tra": 0, "Trực": 0, "Phụ đạo": 0 }, JSON.parse(localStorage.getItem(KEY_RATES) || "{}"));
+    let rates = Object.assign({ "Dạy": 0, "Phụ đạo": 0, "Nghe": 0, "Kiểm tra": 0, "Trực": 0 }, JSON.parse(localStorage.getItem(KEY_RATES) || "{}"));
     let holidays = new Set(JSON.parse(localStorage.getItem(KEY_HOLIDAYS) || "[]"));
 
     const shiftDateEl = document.getElementById("shiftDate");
