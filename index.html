@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="apple-touch-icon" sizes="180x180" href="icon.png.jfif" />
-  <link rel="icon" type="image/png/jfif" href="icon.png.jfif" />
+  <link rel="icon" type="image/jpeg" href="icon.png.jfif" />
   <title>Sổ Chấm Công &amp; Giờ Làm</title>
   <style>
     :root {
@@ -118,7 +118,6 @@
       font-weight: 600;
       margin-bottom: 5px;
     }
-    /* Cỡ chữ >= 16px giúp iPhone 15 Pro không tự zoom khi chạm nhập liệu */
     input, select, button {
       display: block;
       width: 100%;
@@ -510,6 +509,17 @@
     let rates = Object.assign({ "Dạy": 0, "Phụ đạo": 0, "Nghe": 0, "Kiểm tra": 0, "Trực": 0 }, JSON.parse(localStorage.getItem(KEY_RATES) || "{}"));
     let holidays = new Set(JSON.parse(localStorage.getItem(KEY_HOLIDAYS) || "[]"));
 
+    function sortShiftsNewestFirst(list) {
+      return list.sort((a, b) =>
+        b.date.localeCompare(a.date) ||
+        b.start.localeCompare(a.start) ||
+        b.end.localeCompare(a.end) ||
+        b.id.localeCompare(a.id)
+      );
+    }
+
+    shifts = sortShiftsNewestFirst(shifts);
+
     const shiftDateEl = document.getElementById("shiftDate");
     const shiftJobEl = document.getElementById("shiftJob");
     const startHourEl = document.getElementById("startHour");
@@ -643,7 +653,7 @@
         hours: h,
         holiday: markHolidayEl.checked
       });
-      shifts.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+      sortShiftsNewestFirst(shifts);
       localStorage.setItem(KEY_SHIFTS, JSON.stringify(shifts));
       monthSelectEl.value = shiftDateEl.value.slice(0, 7);
       renderAll();
@@ -733,7 +743,9 @@
     function renderLog() {
       const m = monthSelectEl.value;
       const jf = filterJobEl.value;
-      const rows = shifts.filter(s => s.date.startsWith(m) && (jf === "ALL" || s.job === jf));
+      const rows = sortShiftsNewestFirst(
+        shifts.filter(s => s.date.startsWith(m) && (jf === "ALL" || s.job === jf))
+      );
 
       if (!rows.length) {
         document.getElementById("logBody").innerHTML = `<tr><td colspan="7" class="muted">Chưa có ca nào trong tháng ${m}.</td></tr>`;
@@ -759,7 +771,7 @@
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
       const m = monthSelectEl.value;
       const rows = [["Ngày", "Thứ", "Công việc", "Hệ số", "Bắt đầu", "Kết thúc", "Số giờ quy đổi", "Đơn giá", "Thành tiền"]];
-      shifts.filter(s => s.date.startsWith(m)).forEach(s => {
+      sortShiftsNewestFirst(shifts.filter(s => s.date.startsWith(m))).forEach(s => {
         const u = rates[s.job] || 0;
         const dbl = hasX2(s.date, s.holiday);
         const effH = effectiveHours(s);
