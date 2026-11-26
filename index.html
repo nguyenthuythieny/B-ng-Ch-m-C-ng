@@ -28,7 +28,7 @@
       padding: 14px;
     }
     .app {
-      max-width: 980px;
+      max-width: 960px;
       margin: 0 auto;
     }
     .top-banner {
@@ -88,7 +88,7 @@
     }
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
       gap: 10px;
       align-items: end;
     }
@@ -271,7 +271,7 @@
         </div>
         <div>
           <h1>Sổ Chấm Công Cá Nhân</h1>
-          <p>Dạy · Nghe · Kiểm tra · Trực · Phụ đạo | x2: Chủ Nhật &amp; Ngày lễ (Thứ Bảy = x1)</p>
+          <p>Dạy · Nghe · Kiểm tra · Trực · Phụ đạo | x2 giờ: Chủ Nhật &amp; Ngày lễ (Thứ Bảy = x1)</p>
         </div>
       </div>
       <div class="controls-inline">
@@ -280,7 +280,7 @@
       </div>
     </div>
 
-    <!-- 1. NHẬP CA -->
+    <!-- 1. NHẬP CA LÀM VIỆC (ĐÃ BỎ GHI CHÚ) -->
     <div class="panel">
       <div class="panel-title">
         <span>Nhập ca làm việc</span>
@@ -313,12 +313,8 @@
           <label>Ngày lễ</label>
           <div class="check-box">
             <input type="checkbox" id="markHoliday" />
-            <label for="markHoliday">Lễ (x2)</label>
+            <label for="markHoliday">Lễ (x2 giờ)</label>
           </div>
-        </div>
-        <div>
-          <label for="shiftNote">Ghi chú</label>
-          <input type="text" id="shiftNote" placeholder="VD: Lớp sáng, trực..." />
         </div>
         <div>
           <button type="submit" class="btn-dark">+ Lưu ca</button>
@@ -327,7 +323,7 @@
 
       <!-- MỤC ÍT DÙNG ĐƯỢC ẨN MẶC ĐỊNH -->
       <div id="extraSettingsBox" class="collapsible-body">
-        <label style="margin-bottom:8px;">Đơn giá theo giờ (VNĐ / giờ - hệ số x1)</label>
+        <label style="margin-bottom:8px;">Đơn giá theo giờ (VNĐ / giờ)</label>
         <div class="rates-grid">
           <div>
             <label for="r_Dạy">Dạy</label>
@@ -352,7 +348,7 @@
         </div>
 
         <div class="holiday-row">
-          <label for="newHolidayDate" class="muted" style="margin:0;">Thêm ngày lễ (tự động x2):</label>
+          <label for="newHolidayDate" class="muted" style="margin:0;">Thêm ngày lễ (tự động x2 giờ):</label>
           <input type="date" id="newHolidayDate" />
           <button type="button" id="addHolidayBtn" class="btn-light btn-sm">+ Thêm ngày lễ</button>
         </div>
@@ -360,7 +356,7 @@
       </div>
     </div>
 
-    <!-- 2. DANH SÁCH CA HIỆN NGAY BÊN DƯỚI ĐỂ THEO DÕI -->
+    <!-- 2. DANH SÁCH CA ĐÃ NHẬP (TỰ ĐỘNG x2 SỐ GIỜ CN & LỄ, BỎ GHI CHÚ) -->
     <div class="panel">
       <div class="panel-title">
         <span>Danh sách ca đã nhập</span>
@@ -380,12 +376,11 @@
           <thead>
             <tr>
               <th>Ngày</th>
-              <th>Thứ / Hệ số</th>
+              <th>Thứ</th>
               <th>Công việc</th>
-              <th>Giờ làm</th>
-              <th>Số giờ</th>
+              <th>Khung giờ</th>
+              <th>Số giờ (đã tính x2 CN/Lễ)</th>
               <th>Thành tiền</th>
-              <th>Ghi chú</th>
               <th>Xóa</th>
             </tr>
           </thead>
@@ -394,10 +389,10 @@
       </div>
     </div>
 
-    <!-- 3. TỔNG KẾT CUỐI TUẦN: CHỈ SỐ TIẾNG TỪNG LOẠI VIỆC TRONG TUẦN -->
+    <!-- 3. TỔNG KẾT CUỐI TUẦN (THÊM CỘT THÀNH TIỀN) -->
     <div class="panel">
       <div class="panel-title">
-        <span>Tổng kết cuối tuần (Số tiếng theo loại việc)</span>
+        <span>Tổng kết cuối tuần</span>
         <div class="controls-inline">
           <label for="weekSelect" class="muted" style="margin:0;">Tuần:</label>
           <select id="weekSelect"></select>
@@ -409,7 +404,8 @@
           <thead>
             <tr>
               <th>Loại công việc</th>
-              <th>Số tiếng đã làm trong tuần</th>
+              <th>Số giờ trong tuần</th>
+              <th>Thành tiền</th>
             </tr>
           </thead>
           <tbody id="weekSummaryBody"></tbody>
@@ -417,7 +413,7 @@
       </div>
     </div>
 
-    <!-- 4. TỔNG KẾT CUỐI THÁNG -->
+    <!-- 4. TỔNG KẾT CUỐI THÁNG (CHỈ TỔNG GIỜ THÁNG TỪNG CÔNG VIỆC & THÀNH TIỀN) -->
     <div class="panel">
       <div class="panel-title">
         <span>Tổng kết cuối tháng</span>
@@ -426,11 +422,9 @@
         <table>
           <thead>
             <tr>
-              <th>Công việc</th>
-              <th>Giờ thường T2–T7 (x1)</th>
-              <th>Giờ CN &amp; Lễ (x2)</th>
+              <th>Loại công việc</th>
               <th>Tổng giờ tháng</th>
-              <th>Thành tiền tháng</th>
+              <th>Thành tiền</th>
             </tr>
           </thead>
           <tbody id="monthSummaryBody"></tbody>
@@ -454,7 +448,6 @@
     const startHourEl = document.getElementById("startHour");
     const endHourEl = document.getElementById("endHour");
     const markHolidayEl = document.getElementById("markHoliday");
-    const shiftNoteEl = document.getElementById("shiftNote");
     const newHolidayDateEl = document.getElementById("newHolidayDate");
     const monthSelectEl = document.getElementById("monthSelect");
     const weekSelectEl = document.getElementById("weekSelect");
@@ -500,6 +493,12 @@
     // Chỉ Chủ Nhật (0) hoặc Ngày lễ mới x2; Thứ Bảy (6) tính x1
     function hasX2(dStr, flagged = false) {
       return dayIdx(dStr) === 0 || holidays.has(dStr) || Boolean(flagged);
+    }
+
+    // Số giờ đã nhân đôi nếu là Chủ Nhật hoặc Ngày lễ
+    function effectiveHours(s) {
+      const mult = hasX2(s.date, s.holiday) ? 2 : 1;
+      return Math.round(s.hours * mult * 100) / 100;
     }
 
     function mondayOf(dStr) {
@@ -554,7 +553,7 @@
         return;
       }
       box.innerHTML = list.map(d => `
-        <span class="chip">Lễ ${d} (x2) <button type="button" onclick="removeHoliday('${d}')">&times;</button></span>
+        <span class="chip">Lễ ${d} (x2 giờ) <button type="button" onclick="removeHoliday('${d}')">&times;</button></span>
       `).join("");
     }
 
@@ -575,12 +574,10 @@
         start: startHourEl.value,
         end: endHourEl.value,
         hours: h,
-        holiday: markHolidayEl.checked,
-        note: shiftNoteEl.value.trim()
+        holiday: markHolidayEl.checked
       });
       shifts.sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
       localStorage.setItem(KEY_SHIFTS, JSON.stringify(shifts));
-      shiftNoteEl.value = "";
       monthSelectEl.value = shiftDateEl.value.slice(0, 7);
       renderAll();
     });
@@ -611,60 +608,57 @@
 
       shifts.forEach(s => {
         if (!JOBS.includes(s.job) || !dates.has(s.date)) return;
-        hoursByJob[s.job] += s.hours;
+        hoursByJob[s.job] += effectiveHours(s);
       });
 
-      let totalWeekHours = 0;
+      let totalHours = 0, totalMoney = 0;
       let html = JOBS.map(j => {
         const h = hoursByJob[j];
-        totalWeekHours += h;
+        const money = h * (rates[j] || 0);
+        totalHours += h;
+        totalMoney += money;
         return `<tr>
           <td><span class="tag">${j}</span></td>
           <td><strong>${fmtH(h)}</strong></td>
+          <td>${fmtVND(money)}</td>
         </tr>`;
       }).join("");
 
       html += `<tr class="sum-row">
         <td>Tổng cộng cả tuần</td>
-        <td>${fmtH(totalWeekHours)}</td>
+        <td>${fmtH(totalHours)}</td>
+        <td>${fmtVND(totalMoney)}</td>
       </tr>`;
       document.getElementById("weekSummaryBody").innerHTML = html;
     }
 
     function renderMonth() {
       const m = monthSelectEl.value;
-      const map = {};
-      JOBS.forEach(j => map[j] = { norm: 0, dbl: 0 });
+      const hoursByJob = {};
+      JOBS.forEach(j => hoursByJob[j] = 0);
 
       shifts.forEach(s => {
         if (!s.date.startsWith(m) || !JOBS.includes(s.job)) return;
-        if (hasX2(s.date, s.holiday)) map[s.job].dbl += s.hours;
-        else map[s.job].norm += s.hours;
+        hoursByJob[s.job] += effectiveHours(s);
       });
 
-      let tNorm = 0, tDbl = 0, tAll = 0, tMoney = 0;
+      let totalHours = 0, totalMoney = 0;
       let html = JOBS.map(j => {
-        const nh = map[j].norm;
-        const dh = map[j].dbl;
-        const ah = nh + dh;
-        const u = rates[j] || 0;
-        const money = nh * u + dh * u * 2;
-        tNorm += nh; tDbl += dh; tAll += ah; tMoney += money;
+        const h = hoursByJob[j];
+        const money = h * (rates[j] || 0);
+        totalHours += h;
+        totalMoney += money;
         return `<tr>
           <td><span class="tag">${j}</span></td>
-          <td>${fmtH(nh)}</td>
-          <td>${fmtH(dh)}</td>
-          <td><strong>${fmtH(ah)}</strong></td>
+          <td><strong>${fmtH(h)}</strong></td>
           <td>${fmtVND(money)}</td>
         </tr>`;
       }).join("");
 
       html += `<tr class="sum-row">
         <td>Tổng tháng (${m})</td>
-        <td>${fmtH(tNorm)}</td>
-        <td>${fmtH(tDbl)}</td>
-        <td>${fmtH(tAll)}</td>
-        <td>${fmtVND(tMoney)}</td>
+        <td>${fmtH(totalHours)}</td>
+        <td>${fmtVND(totalMoney)}</td>
       </tr>`;
       document.getElementById("monthSummaryBody").innerHTML = html;
     }
@@ -675,22 +669,21 @@
       const rows = shifts.filter(s => s.date.startsWith(m) && (jf === "ALL" || s.job === jf));
 
       if (!rows.length) {
-        document.getElementById("logBody").innerHTML = `<tr><td colspan="8" class="muted">Chưa có ca nào trong tháng ${m}.</td></tr>`;
+        document.getElementById("logBody").innerHTML = `<tr><td colspan="7" class="muted">Chưa có ca nào trong tháng ${m}.</td></tr>`;
         return;
       }
 
       document.getElementById("logBody").innerHTML = rows.map(s => {
         const dbl = hasX2(s.date, s.holiday);
-        const mult = dbl ? 2 : 1;
-        const money = s.hours * (rates[s.job] || 0) * mult;
+        const effH = effectiveHours(s);
+        const money = effH * (rates[s.job] || 0);
         return `<tr>
           <td>${s.date}</td>
-          <td>${dayName(s.date)} <span class="tag ${dbl ? "tag-x2" : ""}">x${mult}</span></td>
+          <td>${dayName(s.date)}</td>
           <td><span class="tag">${s.job}</span></td>
           <td>${s.start} – ${s.end}</td>
-          <td>${fmtH(s.hours)}</td>
+          <td><strong>${fmtH(effH)}</strong> ${dbl ? '<span class="tag tag-x2">x2</span>' : ''}</td>
           <td>${fmtVND(money)}</td>
-          <td>${s.note || ""}</td>
           <td><button class="btn-del" onclick="deleteShift('${s.id}')">Xóa</button></td>
         </tr>`;
       }).join("");
@@ -698,14 +691,14 @@
 
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
       const m = monthSelectEl.value;
-      const rows = [["Ngày", "Thứ", "Công việc", "Hệ số", "Bắt đầu", "Kết thúc", "Số giờ", "Đơn giá", "Thành tiền", "Ghi chú"]];
+      const rows = [["Ngày", "Thứ", "Công việc", "Hệ số", "Bắt đầu", "Kết thúc", "Số giờ quy đổi", "Đơn giá", "Thành tiền"]];
       shifts.filter(s => s.date.startsWith(m)).forEach(s => {
         const u = rates[s.job] || 0;
-        const mult = hasX2(s.date, s.holiday) ? 2 : 1;
+        const dbl = hasX2(s.date, s.holiday);
+        const effH = effectiveHours(s);
         rows.push([
-          s.date, dayName(s.date), s.job, `x${mult}`, s.start, s.end, s.hours, u,
-          Math.round(s.hours * u * mult),
-          `"${(s.note || "").replace(/"/g, '""')}"`
+          s.date, dayName(s.date), s.job, dbl ? "x2" : "x1", s.start, s.end, effH, u,
+          Math.round(effH * u)
         ]);
       });
       const csv = "\uFEFF" + rows.map(r => r.join(",")).join("\n");
