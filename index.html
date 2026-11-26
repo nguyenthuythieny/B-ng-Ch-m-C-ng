@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Sổ Chấm Công &amp; Giờ Làm</title>
   <style>
     :root {
@@ -10,11 +10,11 @@
       --surface: #ffffff;
       --header-bg: #2f3337;
       --header-text: #ffffff;
-      --ink: #22262a;
-      --muted: #646b73;
-      --line: #d8dde3;
-      --accent: #3b4248;
-      --accent-hover: #1f2326;
+      --ink: #1f2429;
+      --muted: #626a73;
+      --line: #dce1e7;
+      --accent: #353b41;
+      --accent-hover: #1b1f23;
       --x2-bg: #fff3cd;
       --x2-ink: #7a5200;
       --danger: #b91c1c;
@@ -22,68 +22,77 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--ink);
-      padding: 12px;
+      padding-top: max(12px, env(safe-area-inset-top));
+      padding-right: max(12px, env(safe-area-inset-right));
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
+      padding-left: max(12px, env(safe-area-inset-left));
       -webkit-text-size-adjust: 100%;
     }
     .app {
       width: 100%;
-      max-width: 960px;
+      max-width: 430px;
       margin: 0 auto;
     }
     .top-banner {
       background: var(--header-bg);
       color: var(--header-text);
-      border-radius: 12px;
-      padding: 12px 14px;
+      border-radius: 14px;
+      padding: 13px 14px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
+      flex-direction: column;
+      gap: 11px;
       margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
-    .top-left {
+    .top-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      min-width: 0;
+      gap: 11px;
     }
     .icon-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      border: 1.5px solid rgba(255,255,255,0.35);
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
       display: grid;
       place-items: center;
       flex-shrink: 0;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.07);
     }
     .top-banner h1 {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.12rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
       line-height: 1.25;
+    }
+    .banner-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
     }
     .panel {
       width: 100%;
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px 14px;
+      border-radius: 14px;
+      padding: 13px 14px;
       margin-bottom: 12px;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, 0.03);
     }
     .panel-title {
       font-size: 0.98rem;
       font-weight: 700;
-      margin: 0 0 10px;
-      padding-bottom: 8px;
+      margin: 0 0 11px;
+      padding-bottom: 9px;
       border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
       gap: 8px;
     }
     .form-grid {
@@ -100,36 +109,50 @@
       font-size: 0.78rem;
       color: var(--muted);
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
+    /* Cỡ chữ >= 16px giúp iPhone 15 Pro không tự zoom khi chạm nhập liệu */
     input, select, button {
       width: 100%;
       min-width: 0;
+      min-height: 42px;
       padding: 9px 10px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid var(--line);
-      font-size: 0.92rem;
+      font-size: 1rem;
       background: #fff;
       color: var(--ink);
+    }
+    .banner-actions input,
+    .banner-actions button {
+      min-height: 38px;
+      padding: 7px 11px;
+      font-size: 0.9rem;
+    }
+    .banner-actions button {
+      width: auto;
     }
     .check-box {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 10px;
+      padding: 0 10px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       background: #f8f9fa;
-      min-height: 39px;
+      min-height: 42px;
     }
     .check-box input[type="checkbox"] {
-      width: auto;
+      width: 18px;
+      height: 18px;
+      min-height: 18px;
+      padding: 0;
       flex-shrink: 0;
       margin: 0;
-      transform: scale(1.15);
     }
     .check-box label {
       margin: 0;
+      font-size: 0.9rem;
       color: var(--ink);
       cursor: pointer;
     }
@@ -141,7 +164,8 @@
       background: var(--accent);
       color: #fff;
       border-color: var(--accent);
-      padding: 10px 12px;
+      min-height: 44px;
+      font-size: 0.98rem;
     }
     .btn-dark:hover { background: var(--accent-hover); }
     .btn-light {
@@ -150,16 +174,20 @@
       width: auto;
     }
     .btn-sm {
-      padding: 6px 10px;
+      min-height: 34px;
+      padding: 5px 10px;
       font-size: 0.8rem;
+      border-radius: 8px;
       width: auto;
     }
     .btn-del {
       background: #fff;
       color: var(--danger);
       border-color: #fecaca;
-      padding: 5px 9px;
-      font-size: 0.8rem;
+      min-height: 32px;
+      padding: 4px 8px;
+      font-size: 0.78rem;
+      border-radius: 7px;
       width: auto;
     }
     .collapsible-body {
@@ -177,16 +205,21 @@
       gap: 10px;
     }
     .holiday-row {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr auto;
       gap: 8px;
       align-items: center;
       margin-top: 12px;
       padding-top: 10px;
       border-top: 1px dashed var(--line);
     }
-    .holiday-row input[type="date"], .holiday-row button {
-      width: auto;
+    .holiday-row .holiday-label {
+      grid-column: 1 / -1;
+      margin: 0;
+    }
+    .holiday-row input[type="date"] {
+      min-height: 38px;
+      font-size: 0.92rem;
     }
     .chips {
       display: flex;
@@ -209,17 +242,22 @@
       border: none;
       background: none;
       color: var(--x2-ink);
+      min-height: auto;
       padding: 0;
       width: auto;
+      font-size: 0.95rem;
       line-height: 1;
     }
     .controls-inline {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
       align-items: center;
+      gap: 6px;
     }
-    .controls-inline input, .controls-inline select, .controls-inline button {
+    .controls-inline select {
+      min-height: 34px;
+      padding: 5px 8px;
+      font-size: 0.84rem;
+      border-radius: 8px;
       width: auto;
     }
     .table-wrap {
@@ -230,27 +268,27 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.86rem;
+      font-size: 0.84rem;
     }
     th, td {
-      padding: 8px 7px;
+      padding: 8px 6px;
       border-bottom: 1px solid var(--line);
       text-align: left;
       white-space: nowrap;
     }
     th {
-      background: #f4f6f8;
+      background: #f5f7f9;
       color: var(--muted);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
     }
     .tag {
       display: inline-block;
       padding: 2px 7px;
       border-radius: 6px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      background: #e9ecef;
+      background: #eceff2;
       color: #212529;
     }
     .tag-x2 {
@@ -263,40 +301,23 @@
     }
     .muted {
       color: var(--muted);
-      font-size: 0.8rem;
-    }
-
-    /* Màn hình lớn hơn (máy tính / tablet ngang): dàn form nhập ca trên 1 hàng */
-    @media (min-width: 680px) {
-      body { padding: 16px; }
-      .panel { padding: 14px 16px; }
-      .form-grid {
-        grid-template-columns: 1.15fr 1.1fr 0.9fr 0.9fr auto auto;
-      }
-      .full-span {
-        grid-column: auto;
-      }
-      .rates-grid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-      }
+      font-size: 0.78rem;
     }
   </style>
 </head>
 <body>
   <div class="app">
     <div class="top-banner">
-      <div class="top-left">
+      <div class="top-row">
         <div class="icon-badge" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9"></circle>
             <polyline points="12 7 12 12 15.5 14"></polyline>
           </svg>
         </div>
-        <div>
-          <h1>Sổ Chấm Công Cá Nhân</h1>
-        </div>
+        <h1>Sổ Chấm Công Cá Nhân</h1>
       </div>
-      <div class="controls-inline">
+      <div class="banner-actions">
         <input type="month" id="monthSelect" />
         <button type="button" id="exportCsvBtn" class="btn-light">Xuất CSV</button>
       </div>
@@ -331,11 +352,10 @@
           <label for="endHour">Kết thúc</label>
           <input type="time" id="endHour" value="10:00" required />
         </div>
-        <div>
-          <label>Ngày lễ</label>
+        <div class="full-span">
           <div class="check-box">
             <input type="checkbox" id="markHoliday" />
-            <label for="markHoliday">Lễ (x2)</label>
+            <label for="markHoliday">Ngày lễ (tự động nhân đôi số giờ x2)</label>
           </div>
         </div>
         <div class="full-span">
@@ -370,9 +390,9 @@
         </div>
 
         <div class="holiday-row">
-          <label for="newHolidayDate" class="muted" style="margin:0;">Thêm ngày lễ (x2 giờ):</label>
+          <label for="newHolidayDate" class="muted holiday-label">Thêm ngày lễ (tự động x2 giờ):</label>
           <input type="date" id="newHolidayDate" />
-          <button type="button" id="addHolidayBtn" class="btn-light btn-sm">+ Thêm ngày lễ</button>
+          <button type="button" id="addHolidayBtn" class="btn-light btn-sm">+ Thêm</button>
         </div>
         <div id="holidayChips" class="chips"></div>
       </div>
@@ -416,7 +436,6 @@
       <div class="panel-title">
         <span>Tổng kết cuối tuần</span>
         <div class="controls-inline">
-          <label for="weekSelect" class="muted" style="margin:0;">Tuần:</label>
           <select id="weekSelect"></select>
         </div>
       </div>
@@ -509,7 +528,7 @@
     }
 
     function dayName(dStr) {
-      return ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"][dayIdx(dStr)];
+      return ["CN", "T2", "T3", "T4", "T5", "T6", "T7"][dayIdx(dStr)];
     }
 
     // Chỉ Chủ Nhật (0) hoặc Ngày lễ mới x2; Thứ Bảy (6) tính x1
@@ -575,7 +594,7 @@
         return;
       }
       box.innerHTML = list.map(d => `
-        <span class="chip">Lễ ${d} (x2 giờ) <button type="button" onclick="removeHoliday('${d}')">&times;</button></span>
+        <span class="chip">Lễ ${d} (x2) <button type="button" onclick="removeHoliday('${d}')">&times;</button></span>
       `).join("");
     }
 
@@ -615,7 +634,7 @@
       shifts.forEach(s => set.add(mondayOf(s.date)));
       const sorted = Array.from(set).sort((a, b) => b.localeCompare(a));
       const prev = weekSelectEl.value;
-      weekSelectEl.innerHTML = sorted.map(m => `<option value="${m}">Tuần ${m} – CN (${addDays(m, 6)})</option>`).join("");
+      weekSelectEl.innerHTML = sorted.map(m => `<option value="${m}">${m.slice(5)} – ${addDays(m, 6).slice(5)}</option>`).join("");
       weekSelectEl.value = (prev && sorted.includes(prev)) ? prev : sorted[0];
     }
 
@@ -647,7 +666,7 @@
       }).join("");
 
       html += `<tr class="sum-row">
-        <td>Tổng cộng cả tuần</td>
+        <td>Tổng tuần</td>
         <td>${fmtH(totalHours)}</td>
         <td>${fmtVND(totalMoney)}</td>
       </tr>`;
@@ -700,10 +719,10 @@
         const effH = effectiveHours(s);
         const money = effH * (rates[s.job] || 0);
         return `<tr>
-          <td>${s.date}</td>
+          <td>${s.date.slice(5)}</td>
           <td>${dayName(s.date)}</td>
           <td><span class="tag">${s.job}</span></td>
-          <td>${s.start} – ${s.end}</td>
+          <td>${s.start}–${s.end}</td>
           <td><strong>${fmtH(effH)}</strong> ${dbl ? '<span class="tag tag-x2">x2</span>' : ''}</td>
           <td>${fmtVND(money)}</td>
           <td><button class="btn-del" onclick="deleteShift('${s.id}')">Xóa</button></td>
